@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/fragments::head}">
+
+<body>
+	<nav th:replace="~{fragment/fragments :: navbar}"></nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group my-3">
+					<a th:href="@{/transactions/transaction-form}" class="btn btn-warning btn-sm">Create
+						New
+						Transaction</a>
+				</div>
+			</div>
+		</div>
+		<div class="row vh-100 justify-content-center align-items-start">
+			<div class="col-sm-12">
+				<table class="table table-hover table-condensed table-striped">
+					<thead class="bg-success text-white">
+						<tr>
+							<th scope="col">Date</th>
+							<th scope="col">Type</th>
+							<th scope="col">Account</th>
+							<th scope="col">Amount</th>
+							<th scope="col">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each=" transaction : ${ transactions }" class="table-active">
+							<th th:text="${transaction.createdAt}" scope="row"></th>
+							<td th:text="${transaction.transactionType.name}"></td>
+							<td th:text="${transaction.account.accountName}"></td>
+							<td th:text="${transaction.amount}"></td>
+							<td th:text="${transaction.status}"></td>
+						</tr>
+						<tr class="table-success text-center">
+							<th scope="row" colspan="5">&copy; Simple Banking</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/fragments::head}">
+
+<body>
+	<nav th:replace="~{fragment/fragments :: navbar}"></nav>
+	<div class="container">
+		<div class="row row-cols-1 vh-100 justify-content-center align-items-center">
+			<div class="col col-md-6 card bg-white">
+				<div class="card-content">
+					<div class="card-body">
+						<div class="row border-3 border-bottom border-success">
+							<div class="col">
+								<h5 class="h5">Account Name</h5>
+								<h6 th:text="${account.accountName}" class="h6"></h6>
+							</div>
+							<div class="col">
+								<h5 class="h5">Account Number</h5>
+								<h6 th:text="${account.accountNumber}" class="h6"></h6>
+							</div>
+						</div>
+						<div class="row border-3 border-bottom border-success">
+							<div class="col">
+								<h5 class="h5">Account Type</h5>
+								<h6 th:text="${account.accountType.name}" class="h6"></h6>
+							</div>
+							<div class="col">
+								<h4 class="h4">Account Balance</h4>
+								<h6 th:text="${account.accountBalance}" class="h6"></h6>
+							</div>
+						</div>
+						<div class="row mt-5">
+							<div class="col btn-group">
+								<a th:href="@{/accounts/{accountId}/update(accountId=${account.id})}"
+									class="btn btn-success">Update</a>
+								<a th:href="@{/accounts/{accountId}/delete(accountId=${account.id})}"
+									class="btn btn-danger">Delete</a>
+								<a th:href="@{/dashboard}" class="btn btn-secondary">Cancel</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

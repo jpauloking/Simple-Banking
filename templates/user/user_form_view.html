@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/fragments::head}">
+
+<body class="bg-success">
+	<div class="container">
+		<div class="row vh-100 justify-content-center align-items-center">
+			<div class="col-sm-12 col-md-8 mx-auto">
+				<div class="card bg-white">
+					<div class="card-content">
+						<div class="card-header bg-success text-white text-center p-3">
+							<h4 class="card-title">User Form</h4>
+							<p class="card-text">Create your new user credentials here</p>
+						</div>
+						<div class="card-body">
+							<form th:action="@{/user/registration}" } method="POST">
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="id" th:field="${user.id}">
+								</div>
+								<div class="form-group">
+									<label for="first-name">First Name</label>
+									<input type="text" class="form-control" id="first-name" placeholder="John"
+										th:field="${user.firstName}">
+								</div>
+								<div class="form-group">
+									<label for="last-name">Last Name</label>
+									<input type="text" class="form-control" id="last-name" placeholder="Doe"
+										th:field="${user.lastName}">
+								</div>
+								<div class="form-group">
+									<label for="email-address">Email Address</label>
+									<input type="email" class="form-control" id="email-address"
+										placeholder="johndoe@gmail.com" th:field="${user.emailAddress}">
+								</div>
+								<div class="form-group">
+									<label for="user-name">User Name</label>
+									<input type="text" class="form-control" id="user-name" placeholder="John"
+										th:field="${user.username}">
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" placeholder="***********"
+										th:field="${user.password}">
+								</div>
+								<div class="form-group my-3">
+									<input type="submit" class="form-control btn btn-sm btn-success">
+								</div>
+								<div class="form-group my-3 text-center text-dark">
+									<a th:href="@{/login}" class="textstyle-none text-uppercase">Already have an account? <strong
+											class="text-success">Login</strong> here.</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

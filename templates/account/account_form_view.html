@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/fragments::head}">
+
+<body>
+	<nav th:replace="~{fragment/fragments :: navbar}"></nav>
+	<div class="container">
+		<div class="row vh-100 justify-content-center align-items-center">
+			<div class="col-sm-12 col-md-8 mx-auto">
+				<div class="card bg-white">
+					<div class="card-content">
+						<div class="card-header text-center text-white bg-success p-3">
+							<h4 class="card-title">Account Form</h4>
+							<p class="card-text">Enter account details</p>
+						</div>
+						<div class="card-body">
+							<form th:action="@{/accounts/account-form}" method="POST">
+								<div class="form-group">
+									<label for="account-name">
+										<h6>Account Name</h6>
+									</label>
+									<input type="text" class="form-control" id="account-name"
+										th:field="${account.accountName}">
+								</div>
+								<div th:if="${accountTypes.size() gt 0}" class="form-group">
+									<label for="account-type">
+										<h6>Account Type</h6>
+									</label>
+									<select th:field="${account.accountType}" class="form-select">
+										<option th:each=" accountType : ${accountTypes}" th:text="${accountType.name}"
+											th:value="${accountType.id}"
+											th:selected="${ accountType.id == selectedValue ? true : _  }">
+										</option>
+									</select>
+								</div>
+								<div th:if="${accountTypes.size() le 0 }" class="form-group mt-3">
+									<a th:href="@{/accounts/account-types/account-type-form}"
+										class="btn btn-warning btn-sm">Create New
+										Account Type</a>
+								</div>
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="id" th:field="${account.id}">
+								</div>
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="id"
+										th:field="${account.accountNumber}">
+								</div>
+								<div class="form-group my-3">
+									<input type="submit" class="form-control btn btn-sm btn-success">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/fragments::head}">
+	
+</head>
+
+<body>
+	<nav th:replace="~{fragment/fragments :: navbar}"></nav>
+	<div class="container">
+		<div class="row my-5">
+			<div class="col-sm-12 bg-success my-2 py-2 border-5 border-bottom border-white">
+				<h3 class="h3 text-white text-uppercase">Aggregates</h3>
+			</div>
+			<div class="col-sm-12 col-md card bg-white m-1 p-5 border-3 border-bottom border-success">
+				<div class="card-content">
+					<div class="card-header bg-dark">
+						<h6 class="h6 card-title text-white">Total Balance</h6>
+					</div>
+					<div class="card-body">
+						<h4 th:text="${totalBalance}" class="h4 card-text">0.00</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md card bg-white m-1 p-5 border-3 border-bottom border-success">
+				<div class="card-content">
+					<div class="card-header bg-dark">
+						<h6 class="h6 card-title text-white">Total Income</h6>
+					</div>
+					<div class="card-body">
+						<h4 th:text="${totalIncome}" class="h4 card-text">0.00</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md card bg-white m-1 p-5 border-3 border-bottom border-success">
+				<div class="card-content">
+					<div class="card-header bg-dark">
+						<h6 class="h6 card-title text-white">Total Expenditure</h6>
+					</div>
+					<div class="card-body">
+						<h4 th:text="${totalExpenditure}" class="h4 card-text">0.00</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md card bg-white m-1 p-5 border-3 border-bottom border-success">
+				<div class="card-content">
+					<div class="card-header bg-dark">
+						<h6 class="h6 card-title text-white">Total Transfer</h6>
+					</div>
+					<div class="card-body">
+						<h4 th:text="${totalTransfer}" class="h4 card-text">0.00</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-5">
+			<div class="col-sm-12 bg-success my-2 py-2 border-5 border-bottom border-white">
+				<h3 class="h3 text-white text-uppercase">Summary</h3>
+			</div>
+			<div class="col-sm-12 col-md bg-white m-1 border-5 border-bottom border-success p-3">
+				<h6 class="h6">Number Of Accounts</h6>
+				<h4 th:text="${accounts.size()}" class="h4"></h4>
+			</div>
+			<div class="col-sm-12 col-md bg-white m-1 border-5 border-bottom border-success p-3">
+				<h6 class="h6">Number Of Transactions (Incomes)</h6>
+				<h4 th:text="${incomeCount}" class="h4"></h4>
+			</div>
+			<div class="col-sm-12 col-md bg-white m-1 border-5 border-bottom border-success p-3">
+				<h6 class="h6">Number Of Transactions (Expenditures)</h6>
+				<h4 th:text="${expenditureCount}" class="h4"></h4>
+			</div>
+			<div class="col-sm-12 col-md bg-white m-1 border-5 border-bottom border-success p-3">
+				<h6 class="h6">Number Of Transactions (Transfers)</h6>
+				<h4 th:text="${transferCount}" class="h4"></h4>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 bg-success my-2 py-2 border-5 border-bottom border-white">
+				<h3 class="h3 text-white text-uppercase">Accounts</h3>
+			</div>
+		</div>
+	</div>
+	<div th:each="account: ${accounts}" class="container bg-white my-2 border-5 border-bottom border-success">
+		<div class="row row-cols-sm-1 row-cols-md-5 mx-auto justify-content-center align-items-center p-3">
+			<div class="col">
+				<h6 class="h6">Account Name</h6>
+				<h5 th:text="${account.accountName}" class="h5">Account Name</h5>
+			</div>
+			<div class="col">
+				<h6 class="h6">Account Number</h6>
+				<h5 th:text="${account.accountNumber}" class="h5">Account Number</h5>
+			</div>
+			<div class="col">
+				<h6 class="h6">Account Balance</h6>
+				<h5 th:text="${account.accountBalance}" class="h5">Account Balance</h5>
+			</div>
+			<div class="col">
+				<h6 class="h6">Account Type</h6>
+				<h5 th:text="${account.accountType.name}" class="h5">Account Type</h5>
+			</div>
+			<div class="col btn-group btn-group-vertical">
+				<a th:href="@{/accounts/{accountId}/deposit(accountId=${account.id})}"
+					class="btn btn-outline-success btn-sm d-block">Deposit</a>
+				<a th:href="@{/accounts/{accountId}/withdrawal(accountId=${account.id})}"
+					class="btn btn-outline-success btn-sm d-block">Withdraw</a>
+				<a th:href="@{/accounts/{accountId}/transfer(accountId=${account.id})}"
+					class="btn btn-outline-success btn-sm d-block">Transfer</a>
+				<a th:href="@{/accounts/{accountId}(accountId=${account.id})}"
+					class="btn btn-success btn-sm d-block">More</a>
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

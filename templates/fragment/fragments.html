@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<title>Simple Banking.</title>
+	<style>
+		body {
+			background: rgb(135, 205, 151)
+		}
+	</style>
+</head>
+
+<body class="bg-light">
+	<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-success">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/dashboard}">Simple Banking.</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+				aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/transactions}">Transactions</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/transactions/transaction-form}">New Transaction</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/transactions/transaction-types/transaction-type-form}">New
+							Transaction Type</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/accounts/account-form}">New Account</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/accounts/account-types/account-type-form}">New Account Type</a>
+					</li>
+				</ul>
+				<!--			<ul class="navbar-nav me-auto">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/dashboard}">Transactions</a>
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="modal" href="#transaction-form" role="button" aria-controls="transactionForm"
+							class="nav-link">New Transaction</a>
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="modal" href="#account-form" role="button" aria-controls="accountForm"
+							class="nav-link">New Account</a>
+					</li>
+					<li class="nav-item">
+						<a data-bs-toggle="modal" href="#account-type-form" role="button"
+							aria-controls="accountTypeForm" class="nav-link">New Account Type</a>
+					</li>
+				</ul> -->
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a th:href="@{/user}" class="nav-link">Profile</a>
+					</li>
+					<li class="nav-item">
+						<a th:href="@{/logout-confirm}" class="nav-link">Logout</a>
+					</li>
+					<!--					<li class="nav-item">-->
+					<!--						<form th:action="@{/logout}" method="POST">-->
+					<!--							<button class=" btn btn-outline nav-link" type="submit">Log Out</button>-->
+					<!--						</form>-->
+					<!--					</li>-->
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- User Profile -->
+	<div th:fragment="profile" class="offcanvas offcanvas-start" tabindex="-1" id="profile"
+		aria-labelledby="transaction-form" aria-hidden="true" style="visibility: hidden;">
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="title">User Profile</h5>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div>
+				Add a transaction form fields here
+			</div>
+		</div>
+	</div>
+	<!-- /User Profile -->
+	<!-- Transaction Form -->
+	<div th:fragment="transactionForm" class="modal" id="transaction-form">
+		<div class="modal-dialog" aria-labelledby="transaction-form" aria-hidden="true" role="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Transaction Form</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Account Form -->
+	<!-- Account Form -->
+	<div th:fragment="accountForm" class="modal" id="account-form">
+		<div class="modal-dialog" aria-labelledby="account-form" aria-hidden="true" role="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Account Form</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="POST">
+						<div class="form-group">
+							<input type="hidden" class="form-control" id="id" th:field="${account.id}">
+						</div>
+						<div class="form-group">
+							<label for="account-name">Account Name</label>
+							<input type="text" class="form-control" id="account-name" placeholder="Name Of Account"
+								th:field="${account.accountName}">
+						</div>
+						<div th:if="${accountTypes != null}" class="form-group">
+							<label for="account-type">Account Type</label>
+							<select th:field="${account.accountType}" class="form-select">
+								<option th:each=" accountType : ${accountTypes}" th:text="${accountType.name}"
+									th:value="${accountType.id}"></option>
+							</select>
+						</div>
+						<div th:if="${accountTypes == null }" class="form-group mt-3">
+							<a th:href="@{/account/account-types/create}" class="btn btn-warning btn-sm">Creat New
+								Account Type</a>
+						</div>
+						<div class="form-group my-3">
+							<input type="submit" class="form-control btn btn-sm btn-success">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Account Form -->
+	<!-- Account Type Form -->
+	<div th:fragment="accountTypeForm" class="modal" id="account-type-form">
+		<div class="modal-dialog" aria-labelledby="account-type-form" aria-hidden="true" role="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Account Type Form</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="POST">
+						<div class="form-group">
+							<input type="hidden" class="form-control" id="id" th:field="${accountType.id}">
+						</div>
+						<div class="form-group">
+							<label for="account-type-name">Account Type Name</label>
+							<input type="text" class="form-control" id="account-type-name"
+								placeholder="Name Of Account Type" th:field="${accountType.name}">
+						</div>
+						<div class="form-group">
+							<label for="description">Account Type Description</label>
+							<textarea type="text" class="form-control" id="description"
+								placeholder="Description of the account type"
+								th:field="${accountType.description}"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="minimum-balance">Minimum Balance Allowed</label>
+							<input type="text" class="form-control" id="minimum-balance"
+								placeholder="Enter the lowest balance allowed for this account type"
+								th:field="${accountType.minimumBalance}">
+						</div>
+						<div class="form-group my-3">
+							<input type="submit" class="form-control btn btn-sm btn-success">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Account Type Form -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

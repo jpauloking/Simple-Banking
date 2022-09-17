@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/fragments::head}">
+
+<body>
+	<nav th:replace="~{fragment/fragments :: navbar}"></nav>
+	<div class="container">
+		<div class="row vh-100 justify-content-center align-items-center">
+			<div class="col-sm-12 col-md-8 mx-auto">
+				<div class="card bg-white">
+					<div class="card-content">
+						<div class="card-header text-center text-white bg-success p-3">
+							<h4 class="card-title">Transaction Form</h4>
+							<p class="card-text">Enter transaction details</p>
+						</div>
+						<div class="card-body">
+							<form th:action="@{/transactions/transaction-form}" method="POST">
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="id" th:field="${transaction.id}">
+								</div>
+								<div class="row row-cols-1">
+									<div class="col">
+										<div th:if="${transactionTypes.size() gt 0}" class="form-group">
+											<label for="transaction-types">
+												<h6>Transaction Type</h6>
+											</label>
+											<select th:field="${transaction.transactionType}" class="form-select"
+												id="transaction-types">
+												<option th:each="_transactionType : ${transactionTypes}"
+													th:text="${_transactionType.name}" th:value="${_transactionType.id}"
+													th:selected="${ selectedTransactionType != null && _transactionType.id == selectedTransactionType.id  }">
+												</option>
+											</select>
+										</div>
+										<div th:if="${transactionTypes.size() le 0 }" class="form-group my-3">
+											<a th:href="@{/transactions/transaction-types/transaction-type-form}"
+												class="btn btn-warning btn-sm">Creat New
+												Transaction Type</a>
+										</div>
+									</div>
+								</div>
+								<div class="row row-cols-2">
+									<div class="col">
+										<div th:if="${accounts.size() gt 0}" class="form-group">
+											<label for="accounts">
+												<h6>Account Name</h6>
+											</label>
+											<select th:field="${transaction.account}" class="form-select" id="accounts">
+												<option th:each=" account : ${accounts}"
+													th:text="${account.accountName}" th:value="${account.id}"
+													th:selected="${ selectedAccount != null && selectedAccount.id == account.id }">
+												</option>
+											</select>
+										</div>
+										<div th:if="${accounts.size() le 0}" class="form-group mt-3">
+											<a th:href="@{/accounts/account-form}" class="btn btn-warning btn-sm">Creat
+												New
+												Account</a>
+										</div>
+									</div>
+									<div th:if="${accounts.size() gt 0}" class="col">
+										<div class="form-group">
+											<label for="account-number">
+												<h6>Account Number</h6>
+											</label>
+											<input type="text" id="account-number" class="form-control"
+												th:value="${selectedAccount != null ? transaction.account.accountNumber : _}">
+										</div>
+									</div>
+								</div>
+								<div th:if="${selectedTransactionType != null && selectedTransactionType.id == 3 }"
+									class="row row-cols-2">
+									<div class="col">
+										<div th:if="${accounts.size() gt 0}" class="form-group">
+											<label for="accounts">
+												<h6>Destination Account Name</h6>
+											</label>
+											<select th:field="${transaction.destinationAccountName}" class="form-select" id="accounts">
+												<option th:each=" account : ${accounts}"
+													th:text="${account.accountName}" th:value="${account.accountName}">
+												</option>
+											</select>
+										</div>
+										<div th:if="${accounts.size() le 0}" class="form-group mt-3">
+											<a th:href="@{/accounts/account-form}" class="btn btn-warning btn-sm">Creat
+												New
+												Account</a>
+										</div>
+									</div>
+									<div th:if="${accounts.size() gt 0}" class="col">
+										<div class="form-group">
+											<label for="account-number">
+												<h6>Destination Account Number</h6>
+											</label>
+											<input type="text" id="account-number" class="form-control"
+												th:field="${transaction.destinationAccountNumber}">
+										</div>
+									</div>
+								</div>
+								<div class="row row-cols-1">
+									<div class="col">
+										<div class="form-group">
+											<label for="destination-account">
+												<h6>Amount</h6>
+											</label>
+											<input type="text" class="form-control" th:field="${transaction.amount}">
+										</div>
+									</div>
+									<div class="col">
+										<div class="form-group">
+											<label for="destination-account-number">
+												<h6>Reason</h6>
+											</label>
+											<input type="text" class="form-control"
+												th:field="${transaction.reasonCode}">
+										</div>
+									</div>
+								</div>
+								<div class="row row-cols-1">
+									<div class="col-sm-12">
+										<div class="form-group my-3">
+											<input type="submit" class="form-control btn btn-sm btn-success">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
+</body>
+
+</html>

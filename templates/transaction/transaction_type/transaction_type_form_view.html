@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/fragments::head}">
+
+<body>
+	<nav th:replace="~{fragment/fragments :: navbar}"></nav>
+	<div class="container">
+		<div class="row vh-100 justify-content-center align-items-center">
+			<div class="col-sm-12 col-md-8 mx-auto">
+				<div class="card bg-white">
+					<div class="card-content">
+						<div class="card-header text-center text-white bg-success p-3">
+							<h4 class="card-title">Transaction Type Form</h4>
+							<p class="card-text">Enter details of the transaction type</p>
+						</div>
+						<div class="card-body">
+							<form th:action="@{/transactions/transaction-types/transaction-type-form}" method="POST">
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="id" th:field="${transactionType.id}">
+								</div>
+								<div class="form-group">
+									<label for="account-type-name">
+										<h6>Transaction Type Name</h6>
+									</label>
+									<input type="text" class="form-control" id="account-type-name"
+										th:field="${transactionType.name}">
+								</div>
+								<div class="form-group">
+									<label for="description">
+										<h6>Transaction Type Description</h6>
+									</label>
+									<textarea type="text" class="form-control" id="description"
+										th:field="${transactionType.description}"></textarea>
+								</div>
+								<div class="form-group my-3">
+									<input type="submit" class="form-control btn btn-sm btn-success">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>
